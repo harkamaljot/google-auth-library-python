@@ -50,7 +50,7 @@ import datetime
 import json
 import urllib
 
-import cachetools
+from cachetools import LRUCache
 
 from google.auth import _helpers
 from google.auth import _service_account_info
@@ -645,7 +645,7 @@ class OnDemandCredentials(
             additional_claims = {}
 
         self._additional_claims = additional_claims
-        self._cache = cachetools.LRUCache(maxsize=max_cache_size)
+        self._cache = LRUCache(maxsize=max_cache_size)
 
     @classmethod
     def _from_signer_and_info(cls, signer, info, **kwargs):
